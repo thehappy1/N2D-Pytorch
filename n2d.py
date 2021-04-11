@@ -195,6 +195,7 @@ def eval_other_methods(x, y, names=None):
 def cluster_manifold_in_embedding(hl, y, label_names=None):
     # find manifold on autoencoded embedding
     if args.manifold_learner == 'UMAP':
+        print("bis hier: !")
         hl = hl.cpu().data.numpy()
         md = float(args.umap_min_dist)
         hle = umap.UMAP(
@@ -336,6 +337,7 @@ if __name__ == "__main__":
 
     label_names = None
     transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5),(0.5))])
+    trainset = torchvision.datasets.FashionMNIST(root='../data', train=True, download=True, transform=transform)
     trainset = torchvision.datasets.MNIST(root='../data', train=True, download=True, transform=transform)
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=512, shuffle=True, num_workers=16)
     device = (torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))

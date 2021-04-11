@@ -376,6 +376,7 @@ if __name__ == "__main__":
         print("Time to train the autoencoder: " + str(pretrain_time))
     else:
         net.load_state_dict(torch.load('weights/'+args.ae_weights, map_location=device))
+        print("loaded !")
 
     encoder = nn.Sequential(*[net.layers[i] for i in range(7)])
     encoder.to(device)
@@ -386,6 +387,7 @@ if __name__ == "__main__":
         f.write("\n".join(sys.argv))
 
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=len(trainset), shuffle=True, num_workers=16)
+    print("bis hier: !")
     for imgs, labels in trainloader:
         imgs = imgs.to(device)
         labels = labels.to(device)

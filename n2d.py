@@ -199,6 +199,7 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
         hl = hl.cpu().data.numpy()
         md = float(args.umap_min_dist)
         print("UMAP: !")
+        print(hl)
         hle = umap.UMAP(
             random_state=0,
             metric=args.umap_metric,

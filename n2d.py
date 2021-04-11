@@ -219,7 +219,7 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
             n_components=args.umap_dim,
             n_neighbors=5,
         ).fit_transform(hl)
-
+    print("bis vor clustering")
     # clustering on new manifold of autoencoded embedding
     if args.cluster == 'GMM':
         gmm = mixture.GaussianMixture(
@@ -229,6 +229,7 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
         gmm.fit(hle)
         y_pred_prob = gmm.predict_proba(hle)
         y_pred = y_pred_prob.argmax(1)
+        print("bis nach clustering")
     elif args.cluster == 'KM':
         km = KMeans(
             init='k-means++',

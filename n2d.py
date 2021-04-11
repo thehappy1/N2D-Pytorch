@@ -18,7 +18,7 @@ import torchvision
 from torchvision import transforms
 from torch import optim
 
-import umap
+import umap.umap_ as umap
 from sklearn import metrics
 from sklearn import mixture
 from sklearn.cluster import KMeans, SpectralClustering

@@ -198,12 +198,14 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
         print("bis hier: !")
         hl = hl.cpu().data.numpy()
         md = float(args.umap_min_dist)
+        print("UMAP: !")
         hle = umap.UMAP(
             random_state=0,
             metric=args.umap_metric,
             n_components=args.umap_dim,
             n_neighbors=args.umap_neighbors,
             min_dist=md).fit_transform(hl)
+        print("UMAP after: !")
     elif args.manifold_learner == 'LLE':
         hle = LocallyLinearEmbedding(
             n_components=args.umap_dim,

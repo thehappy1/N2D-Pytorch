@@ -60,7 +60,7 @@ class Fpidataset(Dataset):
         # get classname
         classname = self.classes[target]
 
-        out = {'image': img, 'target': target}
+        out = img, target
 
         return out
 

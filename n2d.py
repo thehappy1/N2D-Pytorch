@@ -345,7 +345,6 @@ if __name__ == "__main__":
     transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5),(0.5))])
     if args.dataset == "FPIDataset":
         trainset = Fpidataset(train=True, transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))]))
-        print("trainset: ", trainset.__getitem__(2))
     elif args.dataset == "FashionMNIST":
         trainset = torchvision.datasets.FashionMNIST(root='../data', train=True, download=True, transform=transform)
     elif args.dataset =="mnist":
@@ -358,7 +357,7 @@ if __name__ == "__main__":
     else:
         ínput_shape = trainset.data[0].view(-1).shape[0]
 
-    print("input shape !!!!!!!!: ", ínput_shape)
+    print("input shape: ", ínput_shape)
 
     net = Autoencoder(numLayers=[ínput_shape, 500, 500, 2000, 10])
     optimizer = optim.Adam(net.parameters(), lr=0.001)

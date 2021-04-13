@@ -344,7 +344,8 @@ if __name__ == "__main__":
     label_names = None
     transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5),(0.5))])
     if args.dataset == "FPIDataset":
-        trainset = Fpidataset(train=True, transform=transform)
+        trainset = Fpidataset(train=True, transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))]))
+        print("trainset: ", trainset.__getitem__(2))
     elif args.dataset == "FashionMNIST":
         trainset = torchvision.datasets.FashionMNIST(root='../data', train=True, download=True, transform=transform)
     elif args.dataset =="mnist":

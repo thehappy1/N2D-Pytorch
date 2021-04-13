@@ -342,6 +342,8 @@ if __name__ == "__main__":
 
     label_names = None
     transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5),(0.5))])
+    if args.dataset == "FashionMNIST":
+        print("works!")
     trainset = torchvision.datasets.FashionMNIST(root='../data', train=True, download=True, transform=transform)
     #trainset = torchvision.datasets.MNIST(root='../data', train=True, download=True, transform=transform)
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=512, shuffle=True, num_workers=16)

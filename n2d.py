@@ -337,6 +337,7 @@ if __name__ == "__main__":
     parser.add_argument('--manifold_learner', default='UMAP', type=str)
     parser.add_argument('--visualize', default=True, action='store_true')
     args = parser.parse_args()
+    print("test  !!!!!!")
     print(args)
 
     label_names = None

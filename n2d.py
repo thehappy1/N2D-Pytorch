@@ -348,9 +348,10 @@ if __name__ == "__main__":
     #trainset = torchvision.datasets.MNIST(root='../data', train=True, download=True, transform=transform)
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=512, shuffle=True, num_workers=16)
     device = (torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
-    print("data[0] output!!", trainset.data[0])
-    print("data[0].view(-1) output: ", trainset.data[0].view(-1))
-    print("data[0].view(-1).shape[0] output: ", trainset.data[0].view(-1).shape[0])
+    if args.dataset == "FashionMNIST":
+        print("data[0] output!!", trainset.data[0])
+        print("data[0].view(-1) output: ", trainset.data[0].view(-1))
+        print("data[0].view(-1).shape[0] output: ", trainset.data[0].view(-1).shape[0])
     net = Autoencoder(numLayers=[trainset.data[0].view(-1).shape[0], 500, 500, 2000, 10])
     optimizer = optim.Adam(net.parameters(), lr=0.001)
     net.to(device)

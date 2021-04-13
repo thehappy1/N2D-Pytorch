@@ -353,8 +353,7 @@ if __name__ == "__main__":
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=512, shuffle=True, num_workers=16)
     device = (torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
     if args.dataset == "FPIDataset":
-        width, height = trainset.__getitem__(0)["image"].size
-        ínput_shape = width * height
+        ínput_shape = 60*80
     else:
         ínput_shape = trainset.data[0].view(-1).shape[0]
 

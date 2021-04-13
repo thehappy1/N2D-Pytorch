@@ -44,15 +44,15 @@ class Fpidataset(Dataset):
         img_path = self.data.image_path[idx]
 
         # open as PIL Image
-        image = Image.open(img_path).convert('RGB')
-        img_size = image.size
+        img = Image.open(img_path).convert('RGB')
+        img_size = img.size
 
         # resize
-        image = image.resize((60, 80))
+        img = img.resize((60, 80))
 
         # transform
         if self.transform is not None:
-            image = self.transform(image)
+            img = self.transform(img)
 
         # get label
         target = self.targets[idx]
@@ -60,7 +60,7 @@ class Fpidataset(Dataset):
         # get classname
         classname = self.classes[target]
 
-        out = {'image': image, 'target': target, 'meta': {'im_size': img_size, 'index': idx, 'class name': classname}}
+        out = {'image': img, 'target': target}
 
         return out
 

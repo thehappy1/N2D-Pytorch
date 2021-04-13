@@ -25,6 +25,7 @@ from sklearn.cluster import KMeans, SpectralClustering
 from sklearn.manifold import Isomap
 from sklearn.manifold import LocallyLinearEmbedding
 from sklearn.utils.linear_assignment_ import linear_assignment
+from fpidataset import Fpidataset
 
 try:
     from MulticoreTSNE import MulticoreTSNE as TSNE
@@ -342,17 +343,20 @@ if __name__ == "__main__":
 
     label_names = None
     transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5),(0.5))])
-    #from fpidataset import Fpidataset
-    #trainset = Fpidataset(train=True, transform=transform)
-    trainset = torchvision.datasets.FashionMNIST(root='../data', train=True, download=True, transform=transform)
-    #trainset = torchvision.datasets.MNIST(root='../data', train=True, download=True, transform=transform)
+    if args.dataset == "FPIDataset":
+        trainset = Fpidataset(train=True, transform=transform)
+    elif args.dataset == "FashionMNIST":
+        trainset = torchvision.datasets.FashionMNIST(root='../data', train=True, download=True, transform=transform)
+    elif args.dataset =="mnist":
+        trainset = torchvision.datasets.MNIST(root='../data', train=True, download=True, transform=transform)
+
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=512, shuffle=True, num_workers=16)
     device = (torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu'))
-    if args.dataset == "FashionMNIST":
-        ínput_shape = trainset.data[0].view(-1).shape[0]
-    else:
+    if args.dataset == "FPIDataset":
         width, height = trainset[0]["image"].size
         ínput_shape = width * height
+    else:
+        ínput_shape = trainset.data[0].view(-1).shape[0]
     net = Autoencoder(numLayers=[ínput_shape, 500, 500, 2000, 10])
     optimizer = optim.Adam(net.parameters(), lr=0.001)
     net.to(device)

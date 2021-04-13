@@ -199,7 +199,7 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
         hl = hl.cpu().data.numpy()
         md = float(args.umap_min_dist)
         print("UMAP: !")
-        print(hl)
+        #print(hl)
         hle = umap.UMAP(
             random_state=0,
             metric=args.umap_metric,
@@ -258,9 +258,9 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
     print(args.dataset + " | " + args.manifold_learner +
           " on autoencoded embedding with " + args.cluster + " - N2D")
     print('=' * 80)
-    print(acc)
-    print(nmi)
-    print(ari)
+    print("acc: ", acc)
+    print("nmi: ", nmi)
+    print("ari: ", ari)
     print('=' * 80)
 
     if args.visualize:

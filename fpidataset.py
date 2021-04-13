@@ -27,21 +27,21 @@ class Fpidataset(Dataset):
         df['targets'] = df.articleType.map(mapper)
 
         if self.train:
-            self.df = get_i_items(df,temp,0, 800)
-            self.targets =  self.df.targets.tolist()
+            self.data = get_i_items(df, temp, 0, 800)
+            self.targets =  self.data.targets.tolist()
         else:
-            self.df = get_i_items(df,temp,800, 1000)
-            self.targets = self.df.targets.tolist()
+            self.data = get_i_items(df, temp, 800, 1000)
+            self.targets = self.data.targets.tolist()
 
     # Get the length
     def __len__(self):
-        return len(self.df)
+        return len(self.data)
 
 
 
     def __getitem__(self, idx):
         # get imagepath
-        img_path = self.df.image_path[idx]
+        img_path = self.data.image_path[idx]
 
         # open as PIL Image
         image = Image.open(img_path).convert('RGB')

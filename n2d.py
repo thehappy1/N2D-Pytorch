@@ -357,6 +357,9 @@ if __name__ == "__main__":
         ínput_shape = width * height
     else:
         ínput_shape = trainset.data[0].view(-1).shape[0]
+
+    print("input shape !!!!!!!!: ", ínput_shape)
+
     net = Autoencoder(numLayers=[ínput_shape, 500, 500, 2000, 10])
     optimizer = optim.Adam(net.parameters(), lr=0.001)
     net.to(device)

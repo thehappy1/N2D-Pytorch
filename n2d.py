@@ -71,8 +71,6 @@ def eval_other_methods(x, y, names=None):
         n_components=args.n_clusters,
         random_state=0)
     gmm.fit(x)
-    print("x", x)
-    print("x shape", x.shape)
     print('=' * 80)
     y_pred_prob = gmm.predict_proba(x)
     y_pred = y_pred_prob.argmax(1)
@@ -198,18 +196,15 @@ def eval_other_methods(x, y, names=None):
 def cluster_manifold_in_embedding(hl, y, label_names=None):
     # find manifold on autoencoded embedding
     if args.manifold_learner == 'UMAP':
-        print("bis hier: !")
+        print("find manifold with UMAP")
         hl = hl.cpu().data.numpy()
         md = float(args.umap_min_dist)
-        print("UMAP: !")
-        #print(hl)
         hle = umap.UMAP(
             random_state=0,
             metric=args.umap_metric,
             n_components=args.umap_dim,
             n_neighbors=args.umap_neighbors,
             min_dist=md).fit_transform(hl)
-        print("UMAP after: !")
     elif args.manifold_learner == 'LLE':
         hle = LocallyLinearEmbedding(
             n_components=args.umap_dim,
@@ -225,7 +220,6 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
             n_components=args.umap_dim,
             n_neighbors=5,
         ).fit_transform(hl)
-    print("bis vor clustering")
     # clustering on new manifold of autoencoded embedding
     if args.cluster == 'GMM':
         gmm = mixture.GaussianMixture(
@@ -233,9 +227,10 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
             n_components=args.n_clusters,
             random_state=0)
         gmm.fit(hle)
+        print("hle (x)", hle)
+        print("x shape", hle)
         y_pred_prob = gmm.predict_proba(hle)
         y_pred = y_pred_prob.argmax(1)
-        print("bis nach clustering")
     elif args.cluster == 'KM':
         km = KMeans(
             init='k-means++',
@@ -340,7 +335,6 @@ if __name__ == "__main__":
     parser.add_argument('--manifold_learner', default='UMAP', type=str)
     parser.add_argument('--visualize', default=True, action='store_true')
     args = parser.parse_args()
-    print("test  !!!!!!")
     print(args)
 
     label_names = None
@@ -395,7 +389,7 @@ if __name__ == "__main__":
         print("Time to train the autoencoder: " + str(pretrain_time))
     else:
         net.load_state_dict(torch.load('weights/'+args.ae_weights, map_location=device))
-        print("loaded !")
+        print("weights loaded")
 
     encoder = nn.Sequential(*[net.layers[i] for i in range(7)])
     encoder.to(device)

@@ -231,6 +231,7 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
         y_pred_prob = gmm.predict_proba(hle)
         y_pred = y_pred_prob.argmax(1)
     elif args.cluster == 'KM':
+        print(hle)
         km = KMeans(
             init='k-means++',
             n_clusters=args.n_clusters,

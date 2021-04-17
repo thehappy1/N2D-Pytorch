@@ -227,8 +227,6 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
             n_components=args.n_clusters,
             random_state=0)
         gmm.fit(hle)
-        #print("hle (x)", hle)
-        print("x shape", hle.shape)
         y_pred_prob = gmm.predict_proba(hle)
         y_pred = y_pred_prob.argmax(1)
     elif args.cluster == 'KM':
@@ -253,12 +251,14 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
     acc = np.round(cluster_acc(y, y_pred), 5)
     nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
+    ds = np.round(metrics.davies_bouldin_score(hle, y_pred))
     print(args.dataset + " | " + args.manifold_learner +
           " on autoencoded embedding with " + args.cluster + " - N2D")
     print('=' * 80)
     print("acc: ", acc)
     print("nmi: ", nmi)
     print("ari: ", ari)
+    print("ds: ", ds)
     print('=' * 80)
 
     if args.visualize:

@@ -71,6 +71,9 @@ def eval_other_methods(x, y, names=None):
         n_components=args.n_clusters,
         random_state=0)
     gmm.fit(x)
+    print("x", x)
+    print("x shape", x.shape)
+    print('=' * 80)
     y_pred_prob = gmm.predict_proba(x)
     y_pred = y_pred_prob.argmax(1)
     acc = np.round(cluster_acc(y, y_pred), 5)
@@ -90,7 +93,6 @@ def eval_other_methods(x, y, names=None):
     nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
     print(args.dataset + " | K-Means clustering on raw data")
-    print('=' * 80)
     print(acc)
     print(nmi)
     print(ari)

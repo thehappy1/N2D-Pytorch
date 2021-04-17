@@ -26,6 +26,7 @@ from sklearn.manifold import Isomap
 from sklearn.manifold import LocallyLinearEmbedding
 from sklearn.utils.linear_assignment_ import linear_assignment
 from fpidataset import Fpidataset
+from s_dbw import S_Dbw
 
 try:
     from MulticoreTSNE import MulticoreTSNE as TSNE
@@ -252,6 +253,8 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
     nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)
     ds = np.round(metrics.davies_bouldin_score(hle, y_pred))
+    s = np.round(metrics.silhouette_score(hle, y_pred, metric='euclidean'))
+    s_dbw = np.round(S_Dbw(hle, y_pred))
     print(args.dataset + " | " + args.manifold_learner +
           " on autoencoded embedding with " + args.cluster + " - N2D")
     print('=' * 80)
@@ -259,6 +262,8 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
     print("nmi: ", nmi)
     print("ari: ", ari)
     print("ds: ", ds)
+    print("s: ", s)
+    print("s_dbw: ", s_dbw)
     print('=' * 80)
 
     if args.visualize:

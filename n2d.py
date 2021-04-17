@@ -227,8 +227,8 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
             n_components=args.n_clusters,
             random_state=0)
         gmm.fit(hle)
-        print("hle (x)", hle)
-        print("x shape", hle)
+        #print("hle (x)", hle)
+        print("x shape", hle.shape)
         y_pred_prob = gmm.predict_proba(hle)
         y_pred = y_pred_prob.argmax(1)
     elif args.cluster == 'KM':
@@ -400,7 +400,7 @@ if __name__ == "__main__":
         f.write("\n".join(sys.argv))
 
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=len(trainset), shuffle=True, num_workers=16)
-    print("bis hier: !")
+
     for imgs, labels in trainloader:
         imgs = imgs.to(device)
         labels = labels.to(device)

@@ -23,7 +23,7 @@ class Fpidataset(Dataset):
         mapper = {}
         for i, cat in enumerate(list(df.articleType.unique())):
             mapper[cat] = i
-        print(mapper)
+
         df['targets'] = df.articleType.map(mapper)
 
         if self.train:

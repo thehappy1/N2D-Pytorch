@@ -251,6 +251,9 @@ def cluster_manifold_in_embedding(hl, y, label_names=None):
     y = y.cpu().data.numpy()
     y = np.asarray(y)
     # y = y.reshape(len(y), )
+
+    print("hle: ", hle)
+    print("hle: shape", hle.shape)
     acc = np.round(cluster_acc(y, y_pred), 5)
     nmi = np.round(metrics.normalized_mutual_info_score(y, y_pred), 5)
     ari = np.round(metrics.adjusted_rand_score(y, y_pred), 5)

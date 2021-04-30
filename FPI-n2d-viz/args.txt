@@ -1,0 +1,10 @@
+n2d.py
+FPIDataset
+0
+--umap_dim=2
+--umap_neighbors=20
+--manifold_learner=UMAP
+--save_dir=FPI-n2d-viz
+--umap_min_dist=0.00
+--visualize
+--ae_weights=FPIDataset-1500-n2d.pt

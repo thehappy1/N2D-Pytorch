@@ -303,11 +303,16 @@ def cluster_acc(y_true, y_pred):
 def plot(x, y, plot_id, names=None):
     viz_df = pd.DataFrame(data=x[:5000])
     viz_df['Label'] = y[:5000]
-    if names is not None:
-        viz_df['Label'] = viz_df['Label'].map(names)
+
+    dict = {0: "Shirts", 1: "Watches", 2: "T-Shirts", 3: "C. Shoes", 4: "Handbags", 5: "Tops", 6: "Kurtas",
+            7: "S. Shoes", 8: "Heels", 9: "Sunglasses"}
+    # dict = {0: "T-shirt/top", 1: "Trouser", 2: "Pullover", 3: "Dress", 4: "Coat", 5: "Sandal", 6: "Shirt", 7: "Sneaker", 8: "Bag",
+    # 9: "Ankle boot"}
+
+    viz_df['Label'] = viz_df["Label"].map(dict)
 
     viz_df.to_csv(args.save_dir + '/' + args.dataset + '.csv')
-    plt.subplots(figsize=(8, 5))
+    plt.subplots(figsize=(14, 7))
     sns.scatterplot(x=0, y=1, hue=viz_df.Label.tolist(), legend='full', hue_order=sorted(viz_df['Label'].unique()),
                     palette=sns.color_palette("hls", n_colors=args.n_clusters),
                     alpha=.5,

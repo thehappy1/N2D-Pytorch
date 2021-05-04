@@ -321,7 +321,7 @@ def plot(x, y, plot_id, names=None):
                     alpha=.5,
                     data=viz_df)
     l = plt.legend(bbox_to_anchor=(-.1, 1.00, 1.1, .5), loc="lower left", markerfirst=True,
-                   mode="expand", borderaxespad=0, ncol=args.n_clusters + 1, handletextpad=0.01, )
+                   mode="expand", borderaxespad=0, ncol=args.n_clusters + 1, handletextpad=0.01, prop={'size': 14})
 
     l.texts[0].set_text("")
     plt.ylabel("")

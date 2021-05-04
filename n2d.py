@@ -303,11 +303,15 @@ def cluster_acc(y_true, y_pred):
 def plot(x, y, plot_id, names=None):
     viz_df = pd.DataFrame(data=x[:5000])
     viz_df['Label'] = y[:5000]
+    plot.legend(loc=2, prop={'size': 6})
 
-    dict = {0: "Shirts", 1: "Watches", 2: "T-Shirts", 3: "C. Shoes", 4: "Handbags", 5: "Tops", 6: "Kurtas",
-            7: "S. Shoes", 8: "Heels", 9: "Sunglasses"}
-    # dict = {0: "T-shirt/top", 1: "Trouser", 2: "Pullover", 3: "Dress", 4: "Coat", 5: "Sandal", 6: "Shirt", 7: "Sneaker", 8: "Bag",
-    # 9: "Ankle boot"}
+    if args.dataset == "FPIDataset":
+        dict = {0: "Shirts", 1: "Watches", 2: "T-Shirts", 3: "C. Shoes", 4: "Handbags", 5: "Tops", 6: "Kurtas",
+                 7: "S. Shoes", 8: "Heels", 9: "Sunglasses"}
+    else:
+        dict = {0: "T-shirt/top", 1: "Trouser", 2: "Pullover", 3: "Dress", 4: "Coat", 5: "Sandal", 6: "Shirt",
+                7: "Sneaker", 8: "Bag",
+                9: "Ankle boot"}
 
     viz_df['Label'] = viz_df["Label"].map(dict)
 

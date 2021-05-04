@@ -326,7 +326,6 @@ def plot(x, y, plot_id, names=None):
     l.texts[0].set_text("")
     plt.ylabel("")
     plt.xlabel("")
-    plt.legend(loc=2, prop={'size': 14})
     plt.tight_layout()
     plt.savefig(args.save_dir + '/' + args.dataset +
                 '-' + plot_id + '.png', dpi=300)

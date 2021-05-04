@@ -303,7 +303,6 @@ def cluster_acc(y_true, y_pred):
 def plot(x, y, plot_id, names=None):
     viz_df = pd.DataFrame(data=x[:5000])
     viz_df['Label'] = y[:5000]
-    plot.legend(loc=2, prop={'size': 6})
 
     if args.dataset == "FPIDataset":
         dict = {0: "Shirts", 1: "Watches", 2: "T-Shirts", 3: "C. Shoes", 4: "Handbags", 5: "Tops", 6: "Kurtas",
@@ -327,10 +326,11 @@ def plot(x, y, plot_id, names=None):
     l.texts[0].set_text("")
     plt.ylabel("")
     plt.xlabel("")
+    plt.legend(loc=2, prop={'size': 6})
     plt.tight_layout()
     plt.savefig(args.save_dir + '/' + args.dataset +
                 '-' + plot_id + '.png', dpi=300)
-    plt.clf()
+        plt.clf()
 
 
 if __name__ == "__main__":
